@@ -264,7 +264,7 @@ if ( ! class_exists( 'TenUp_CSS_Customizer' ) ) :
 			$css = $this->get_css();
 
 			if ( '' !== $css ) {
-				wp_enqueue_style( $this->handle, $this->get_custom_link( $this->handle, home_url() ) );
+				wp_enqueue_style( $this->handle, $this->get_custom_link( $this->handle, home_url() ), array(), TenUp_CSS_VERSION );
 			}
 		}
 
