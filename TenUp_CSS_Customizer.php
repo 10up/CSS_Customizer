@@ -263,7 +263,7 @@ if ( ! class_exists( 'TenUp_CSS_Customizer' ) ) :
 			$css = $this->get_css();
 
 			if ( '' !== $css ) {
-				wp_enqueue_style( $this->handle, $this->get_custom_link( $this->handle, site_url() ) );
+				wp_enqueue_style( $this->handle, $this->get_custom_link( $this->handle, home_url() ) );
 			}
 		}
 
@@ -311,7 +311,7 @@ if ( ! class_exists( 'TenUp_CSS_Customizer' ) ) :
 		 * Generate a custom link based on the home URL.
 		 */
 		private function get_custom_link( $endpoint = '', $base = '' ) {
-			$permalink = $base == '' ? get_option( 'siteurl' ) : $base;
+			$permalink = $base == '' ? get_option( 'home' ) : $base;
 
 			$structure = get_option( 'permalink_structure' );
 
