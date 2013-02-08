@@ -225,8 +225,9 @@ if ( ! class_exists( 'TenUp_CSS_Customizer' ) ) :
 		 */
 		public function register_endpoints() {
 			add_rewrite_tag( "%{$this->handle}%", '(.+)' );
+			add_rewrite_tag( "%pid%", '(.+)' );
 			add_rewrite_rule( "^{$this->handle}/?$", "index.php?{$this->handle}=1", 'top' );
-			add_rewrite_rule( "^{$this->handle}/(.+)/?$", 'index.php?p=$matches[1]&' . $this->handle . '=1', 'top' );
+			add_rewrite_rule( "^{$this->handle}/(.+)/?$", 'index.php?pid=$matches[1]&' . $this->handle . '=1', 'top' );
 		}
 
 		/**
@@ -239,8 +240,8 @@ if ( ! class_exists( 'TenUp_CSS_Customizer' ) ) :
 				return;
 			}
 
-			if ( isset( $wp_query->query_vars['p'] ) ) {
-				$css = $this->get_css( intval( $wp_query->query_vars['p'] ) );
+			if ( isset( $wp_query->query_vars['pid'] ) ) {
+				$css = $this->get_css( intval( $wp_query->query_vars['pid'] ) );
 			} else {
 				$css     = $this->get_css();
 			}
@@ -317,7 +318,7 @@ if ( ! class_exists( 'TenUp_CSS_Customizer' ) ) :
 			if ( empty( $structure ) ) {
 				$new = add_query_arg( $endpoint, 1, $permalink );
 			} else {
-				$new = trailingslashit( $permalink ) . $endpoint . '/1';
+				$new = trailingslashit( $permalink ) . $endpoint;
 			}
 
 			return $new;
