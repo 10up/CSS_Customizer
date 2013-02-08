@@ -64,11 +64,12 @@ if ( ! class_exists( 'TenUp_CSS_Customizer' ) ) :
 			);
 
 			// Wire actions
-			add_action( 'init', array( $this, 'register_endpoints' ) );
-			add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
+			add_action( 'init',                        array( $this, 'register_endpoints' ) );
+			add_action( 'tenup_css_register_rewrites', array( $this, 'register_endpoints' ) );
+			add_action( 'admin_enqueue_scripts',       array( $this, 'admin_enqueue_scripts' ) );
 			add_action( 'permalink_structure_changed', array( $this, 'register_endpoints' ), 9 );
-			add_action( 'template_redirect', array( $this, 'custom_css_template_redirect' ) );
-			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_custom_css' ), 11 );
+			add_action( 'template_redirect',           array( $this, 'custom_css_template_redirect' ) );
+			add_action( 'wp_enqueue_scripts',          array( $this, 'enqueue_custom_css' ), 11 );
 
 			// Wire filters
 			add_filter( 'tenup_css_customizer_instances', array( $this, 'filter_instances' ) );
