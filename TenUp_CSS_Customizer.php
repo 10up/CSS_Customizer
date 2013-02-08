@@ -8,11 +8,23 @@
 
 if ( ! defined( 'TenUp_CSS_URL' ) ) {
 	$here = dirname( dirname( __FILE__ ) );
-	$here = str_replace( substr( ABSPATH, 0, -1 ), '', $here );
+	if ( 0 === strpos( $here, WP_CONTENT_DIR ) ) {
+		$here = str_replace( WP_CONTENT_DIR, '', $here );
+		$url = WP_CONTENT_URL;
+	} elseif ( 0 === strpos( $here, WP_PLUGIN_DIR ) ) {
+		$here = str_replace( WP_PLUGIN_DIR, '', $here );
+		$url = WP_PLUGIN_URL;
+	} elseif ( 0 === strpos( $here, get_theme_root() ) ) {
+		$here = str_replace( get_theme_root(), '', $here );
+		$url = get_theme_root_uri();
+	} else {
+		$here = str_replace( substr( ABSPATH, 0, -1 ), '', $here );
+		$url = get_option( 'siteurl' );
+	}
 	$here = str_replace( '\\', '/', $here );
 
-	define( 'TenUp_CSS_URL', get_option( 'siteurl' ) . $here . '/css-customizer/' );
-	unset( $here );
+	define( 'TenUp_CSS_URL', $url . $here . '/css-customizer/' );
+	unset( $here, $url );
 }
 
 if ( ! defined( 'TenUp_CSS_VERSION' ) ) {
