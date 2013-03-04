@@ -213,6 +213,12 @@ if ( ! class_exists( 'TenUp_CSS_Customizer' ) ) :
 				return;
 			}
 
+			global $post;
+
+			if ( 'meta' === $this->scheme && ! in_array( $post->post_type, $this->settings['metabox-post-types'] ) ) {
+				return;
+			}
+
 			wp_enqueue_style( "{$this->handle}_admin", TenUp_CSS_URL . 'css/admin.css', false, TenUp_CSS_VERSION );
 			wp_enqueue_script( "{$this->handle}_admin", TenUp_CSS_URL . 'js/admin.js', false, TenUp_CSS_VERSION );
 			wp_enqueue_script( 'jquery.spin' );
