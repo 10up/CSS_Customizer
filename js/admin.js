@@ -50,22 +50,19 @@ jQuery( document ).ready( function ( $ ) {
 		} );
 } );
 
-var safecssResize, safecssInit;
-
 (function ( $ ) {
-	var safe, win;
+	var safe = document.querySelector( '.tenup_css' ),
+		$safe = $( safe ),
+		$win = $( window );
 
-	safecssResize = function () {
-		safe.height( win.height() - safe.offset().top - 250 );
-	};
+	function safecssResize () {
+		if ( null === safe ) {
+			return;
+		}
 
-	safecssInit = function () {
-		safe = $( '.tenup_css' );
-		win = $( window );
-
-		safecssResize();
+		$safe.height( win.height() - $safe.offset().top - 250 );
 	};
 
 	window.onresize = safecssResize;
-	addLoadEvent( safecssInit );
+	addLoadEvent( safecssResize );
 })( jQuery );
