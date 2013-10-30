@@ -277,6 +277,8 @@ if ( ! class_exists( 'TenUp_CSS_Customizer' ) ) :
 		/**
 		 * Get the stored CSS for this instance from the database.
 		 *
+		 * @param int $post_id
+		 *
 		 * @return string
 		 */
 		private function get_css( $post_id = 0 ) {
@@ -297,6 +299,7 @@ if ( ! class_exists( 'TenUp_CSS_Customizer' ) ) :
 		 * Store the CSS for this instance in the database.
 		 *
 		 * @param string $css
+		 * @param int    $post_id
 		 */
 		private function save_css( $css, $post_id = 0 ) {
 			switch( $this->scheme ) {
@@ -324,8 +327,14 @@ if ( ! class_exists( 'TenUp_CSS_Customizer' ) ) :
 
 			if ( empty( $structure ) ) {
 				$new = add_query_arg( $endpoint, 1, $permalink );
+				if ( 'meta' === $this->scheme ) {
+					$new = add_query_arg( 'pid', get_the_ID(), $new );
+				}
 			} else {
 				$new = trailingslashit( $permalink ) . $endpoint;
+				if ( 'meta' === $this->scheme ) {
+					$new .= '/' . get_the_ID();
+				}
 			}
 
 			return $new;
